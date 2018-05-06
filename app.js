@@ -10,11 +10,11 @@ app.get("/", function(req, res){
 
 app.get("/campgrounds", function(req, res){
     var campgrounds = [
-        {name: "big hill", image: "https://cdn.pixabay.com/photo/2017/08/06/02/32/camp-2587926_960_720.jpg"},
-        {name: "small hill", image: "https://www.campcheerio.org/images/home-slides/IMG_3046_revised.jpg"},
+        {name: "big hill", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReMI6FwL-HFdQFSWBWOwvQMAlBnJXpNIZIUTrmRp2J2TRrOT9L5w"},
+        {name: "small hill", image: "https://www.tourpackagejaisalmer.com/images/desert-night-camp.png"},
         {name: "my hill", image: "http://www.rapidfitkc.com/wp-content/uploads/2017/09/Best-Boot-Camp-in-Kansas-city.jpg"}
     ]
-    res.render("campgrounds");
+    res.render("campgrounds", {campgrounds: campgrounds});
 });
 
 
