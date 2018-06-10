@@ -11,7 +11,8 @@ app.set("view engine", "ejs");
 //schema setup
 var campgroundSchema= new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
@@ -19,7 +20,9 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 // Campground.create(
 //     {
 //         name: "small hill", 
-//         image: "https://www.tourpackagejaisalmer.com/images/desert-night-camp.png"
+//         image: "https://www.tourpackagejaisalmer.com/images/desert-night-camp.png",
+//         description: "This is the Small Hill Camp"
+
 // }, function(err, campground){
 //     if(err){
 //         console.log(err);
@@ -39,7 +42,7 @@ app.get("/campgrounds", function(req, res){
         if(err){
             console.log(err);
         }else{
-            res.render("campgrounds", {campgrounds: allCampgrounds});
+            res.render("index", {campgrounds: allCampgrounds});
         }
     });    
 });
@@ -47,7 +50,8 @@ app.get("/campgrounds", function(req, res){
 app.post("/campgrounds", function(req, res){
     var name = req.body.name;
     var image = req.body.image;
-    var newCampground = {name: name, image: image}
+    var desc = req.body.description;
+    var newCampground = {name: name, image: image, description: desc}
     //create new campground and save to db
     Campground.create(newCampground, function(err, newlyCreated){
         if(err){
@@ -60,6 +64,16 @@ app.post("/campgrounds", function(req, res){
 
 app.get("/campgrounds/new", function(req, res){
     res.render("new.ejs")
+});
+
+app.get("/campgrounds/:id", function(req,res){
+    Campground.findById(req.params.id, function(err,foundCampground){
+            if(err){
+                console.log(err);
+            }else{
+                res.render("show", {campground: foundCampground});
+            }
+    });    
 });
 
 app.listen(3000, function(){
