@@ -14,21 +14,6 @@ app.set("view engine", "ejs");
 
 
 
-// Campground.create(
-//     {
-//         name: "small hill", 
-//         image: "https://www.tourpackagejaisalmer.com/images/desert-night-camp.png",
-//         description: "This is the Small Hill Camp"
-
-// }, function(err, campground){
-//     if(err){
-//         console.log(err);
-//     }else{
-//         console.log("new camp:");
-//         console.log(campground);
-//     }
-// });
-
 app.get("/", function(req, res){
     res.render("landing");
 });
@@ -64,7 +49,7 @@ app.get("/campgrounds/new", function(req, res){
 });
 
 app.get("/campgrounds/:id", function(req,res){
-    Campground.findById(req.params.id, function(err,foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec,(function(err,foundCampground){
             if(err){
                 console.log(err);
             }else{
